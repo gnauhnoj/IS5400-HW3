@@ -7,6 +7,7 @@ logging.basicConfig(filename='loader.log', level=logging.DEBUG, format='%(asctim
 
 class ECG(object):
     def __init__(self):
+        self.time = []
         self.signal = []
 
 
@@ -19,7 +20,8 @@ def load_timed(filename, signal, freq):
             if row:
                 time = time
                 event_value = row
-                signal.signal.append((time, event_value))
+                signal.time.append(time)
+                signal.signal.append(event_value)
             time += time_step
     logging.info("loading: "+filename+'\t')
 
@@ -35,4 +37,4 @@ if __name__ == '__main__':
     # want time steps that are milliseconds
     frequency_kHz = freq_hertz / 1000
     signal = load_ECG(file, frequency_kHz)
-    # print signal.signal[1]
+    print signal.time[1], signal.signal[1]
